@@ -15,7 +15,7 @@ describe('A user', () => {
     });
 
     // //should successfully checkout
-    it('should successfully checkout', () => {
+    it.only('should successfully checkout', () => {
 
         addSingleItemToCartTest();
 
@@ -66,6 +66,8 @@ describe('A user', () => {
         cy.get(checkoutOverviewPage.itemTax).should('contain', '$2.40');
         //check total
         cy.get(checkoutOverviewPage.total).should('contain', '$32.39');
+
+        checkoutOverviewPage.totalCalculation();
 
         //click finish button
         cy.get(checkoutOverviewPage.btnFinish).click();

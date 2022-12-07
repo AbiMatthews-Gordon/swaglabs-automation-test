@@ -13,7 +13,6 @@ describe('Sort', () => {
 
     it('should sort product list from A-Z', () => {
 
-       // Login.login('standard_user','secret_sauce');
         Product.selectSort(ProductData.sort['A to Z']);
 
         // Sort data list based on name, from A to Z
@@ -27,7 +26,6 @@ describe('Sort', () => {
 
     it('should sort product list from Z-A', () => {
 
-       // Login.login('standard_user','secret_sauce');
         Product.selectSort(ProductData.sort['Z to A']);
 
         // Sort data list based on name, from Z to A
@@ -41,7 +39,6 @@ describe('Sort', () => {
 
     it('should sort product list from low to high', () => {
 
-       // Login.login('standard_user','secret_sauce');
         Product.selectSort(ProductData.sort['Low to High']);
 
         // Sort data list based on price, from low to high
@@ -55,7 +52,6 @@ describe('Sort', () => {
 
     it('should sort product list from high to low', () => {
 
-       // Login.login('standard_user','secret_sauce');
         Product.selectSort(ProductData.sort['High to Low']);
 
         // Sort data list based on price, from high to low
