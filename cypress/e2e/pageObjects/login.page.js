@@ -12,6 +12,14 @@ class Login{
         return ('#login-button');
     }
 
+    get invalidUsername(){
+        return ('#user-name + svg');
+    }
+
+    get invalidLoginErrorMessage(){
+        return ('h3[data-test="error"]');
+    }
+
     //enter username & password & click login button
     login(username, password){
         cy.get(this.usernameField).type(username);
