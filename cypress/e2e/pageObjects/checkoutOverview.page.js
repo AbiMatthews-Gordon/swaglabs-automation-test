@@ -4,8 +4,12 @@
         return ('https://www.saucedemo.com/checkout-step-two.html');
     }
 
-    get ckeckoutOverviewPageTitle() {
+    get checkoutOverviewPageHeader() {
         return ('.title');
+    }
+
+    get cartQuantity(){
+        return ('.cart_quantity');
     }
 
     get overviewItemName() {
@@ -48,8 +52,8 @@
         return ('#finish');
     }
 
-    checkoutOverview() {
+    // checkoutOverview() {
         
-    }
+    // }
 }
 export default new CheckoutOverview()

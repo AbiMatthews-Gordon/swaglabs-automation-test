@@ -1,8 +1,10 @@
-import Login from ('../pageObjects/login.page')
-import { loginData } from '../data/checkoutInfo.data';
-import checkoutInfo from ('../pageObjects/checkoutInfo.page')
-import Cart from ('../pageObjects/Cart.page')
-
+import { loginData } from '../data/login.data';
+import checkoutInfoPage from '../pageObjects/checkoutInfo.page';
+import Cart from '../pageObjects/addToCart.page';
+import Login from '../pageObjects/login.page';
+import { addSingleItemToCartTest } from './addToCart.cy';
+import checkoutOverviewPage from '../pageObjects/checkoutOverview.page';
+import checkoutCompletePage from '../pageObjects/checkoutComplete.page'
 
 describe('A user', () => {
     //The url that opens before each test
@@ -13,100 +15,89 @@ describe('A user', () => {
     });
 
     // //should successfully checkout
-    // it('should successfully checkout', () => {
+    it('should successfully checkout', () => {
 
+        addSingleItemToCartTest();
 
-    //     // add item to cart
-    //     cy.get('#add-to-cart-sauce-labs-backpack').click();
+        //click checkout button
+        cy.get(checkoutInfoPage.btnCheckout).click();
 
-    //     //click cart icon
-    //     cy.get(this.cartIcon).click();
+        //check if url is ckeckout url
+        cy.url().should('include', checkoutInfoPage.checkoutInfoUrl);
 
-    //     //check url
+        //check page header
+        cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
 
+        //enter info
+        checkoutInfoPage.enterCheckoutInfo();
 
-    //     //check that title name of item exist
-    //     cy.get('.title').should('have.text', 'YOUR CART');
+        //click continue btn
+        cy.get(checkoutInfoPage.btnContinue).click();
 
-    //     //check quantity
-    //     cy.get('.cart_quantity').should('have.text', 1);
+        //check if url if check info two url
+        cy.url().should('include', checkoutInfoPage.checkoutInfoUrlTwo);
 
-    //     //check item name
-    //     cy.get('.inventory_item_name').should('have.text', 'Sauce Labs Backpack');
+        //check page header
+        cy.get(checkoutOverviewPage.checkoutOverviewPageHeader).should('be.visible');
+        cy.get(checkoutOverviewPage.checkoutOverviewPageHeader).should('have.text', 'Checkout: Overview');
 
-    //     //check item price
-    //     cy.get('.inventory_item_price').should('have.text', '$29.99');
+        //check quantity
+        cy.get(checkoutOverviewPage.cartQuantity).should('have.text', 1);
 
-    //     //click checkout button 
-    //     cy.get(this.btnCheckout).click();
+        //check item name
+        cy.get(checkoutOverviewPage.overviewItemName).should('have.text', 'Sauce Labs Backpack');
+        //check item price
+        cy.get(checkoutOverviewPage.overviewItemPrice).should('contain', '$29.99');
 
-    //     //check url
+        //check payment info
+        cy.get(checkoutOverviewPage.paymentInfo).should('exist');
+        //check card
+        cy.get(checkoutOverviewPage.sauceCard).should('exist');
 
-    //     //check that page title exist
-    //     cy.get('.title').should('have.text', 'CHECKOUT: YOUR INFORMATION');
+        //check shipping info
+        cy.get(checkoutOverviewPage.shippingInfo).should('exist');
+        //check free pony
+        cy.get(checkoutOverviewPage.freePonyExpressDelivery).should('exist');
 
-    //     //fill out fields
-    //     cy.get(this.firstnameField).type('Jane');
-    //     cy.get(this.lastnameField).type('Doe');
-    //     cy.get(this.zipCodeField).type('00000');
+        //check item total
+        cy.get(checkoutOverviewPage.itemTotal).should('contain', '$29.99');
+        // check tax
+        cy.get(checkoutOverviewPage.itemTax).should('contain', '$2.40');
+        //check total
+        cy.get(checkoutOverviewPage.total).should('contain', '$32.39');
 
-    //     //click continue btn
-    //     cy.get(this.btnContinue).click();
+        //click finish button
+        cy.get(checkoutOverviewPage.btnFinish).click();
 
-    //     //check url
+        //check if url is complete url
+        cy.url().should('include', checkoutCompletePage.checkoutCompleteUrl);
 
-    //     //check page title
-    //     cy.get('.title').should('have.text', 'CHECKOUT: OVERVIEW');
+        //check page header
+        cy.get(checkoutCompletePage.ckeckoutCompletePageHeader).should('be.visible');
+        cy.get(checkoutCompletePage.ckeckoutCompletePageHeader).should('have.text', 'Checkout: Complete!');
 
-    //     //check item name
-    //     cy.get('.inventory_item_name').should('have.text', 'Sauce Labs Backpack');
-    //     //check item price
-    //     cy.get('.inventory_item_price').should('have.text', '$29.99');
+        //check thank you message
+        cy.get(checkoutCompletePage.thankYouMessage).should('have.text', 'THANK YOU FOR YOUR ORDER');
+        //check dispatch message
+        cy.get(checkoutCompletePage.dispatchedMessage).should('have.text', 'Your order has been dispatched, and will arrive just as fast as the pony can get there!');
+        //check logo
+        cy.get(checkoutCompletePage.ponyExpressLogo).should('exist');
 
-    //     //check payment info
-    //     cy.get('.summary_info div:nth-child(1)').should('exist');
-    //     //check card
-    //     cy.get('.summary_info div:nth-child(2)').should('exist');
-
-    //     //check shipping info
-    //     cy.get('.summary_info div:nth-child(3)').should('exist');
-    //     //check free pony
-    //     cy.get('.summary_info div:nth-child(3)').should('exist');
-
-    //     //check item total
-    //     cy.get('.summary_subtotal_label').should('have.text', '$29.99');
-    //     // check tax
-    //     cy.get('.summary_tax_label').should('have.text', '$2.40');
-    //     //check total
-    //     cy.get('.summary_total_label').should('have.text', '$32.39');
-
-    //     //click finish button
-    //     cy.get(this.btnFinish).click();
-
-    //     //check url
-
-    //     //check thank you message
-    //     cy.get('.complete-header').should('have.text', 'THANK YOU FOR YOUR ORDER');
-    //     //check dispatch message
-    //     cy.get('.complete-text').should('have.text', 'Your order has been dispatched, and will arrive just as fast as the pony can get there!');
-    //     //check logo
-    //     cy.get('.pony_express').should('exist');
-
-    //     //click back home button
-    //     cy.get(this.btnBackHome).click();
-
-    // });
+        //go back to products page
+        cy.visit('/');
+    });
 
     //should not checkout if firstname is not entered
-    it('should not checkout without firstname entered', () => {
-        //add item to cart
-        
-
-        //check url
+    // it('should not checkout without firstname entered', () => {
+    //     //add item to cart
 
 
+    //     //check url
 
-    });
+
+
+    // });
 
 
     //should not checkout if lastname is not entered
@@ -116,4 +107,4 @@ describe('A user', () => {
 
 
 
-})
+});

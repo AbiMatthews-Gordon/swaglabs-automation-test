@@ -13,32 +13,8 @@ describe('The User', () => {
 
     it('Add a single item to cart', () => {
 
-        //check if url is inventory url
-        cy.url().should('include', CheckoutInfoPage.inventoryUrl);
-
-        //click add to cart button
-        addToCartPage.addToCart('Sauce Labs Backpack');
-
-        //check cart item count
-        cy.get(addToCartPage.cartBadge).should('have.text', 1);
-
-        //click cart icon
-        cy.get(addToCartPage.cartIcon).click();
-
-        //check if url is cart url
-        cy.url().should('include', CheckoutInfoPage.cartUrl);
-
-        //check page header
-        cy.get(addToCartPage.pageHeader).should('be.visible');
-
-        //check quantity
-        cy.get(addToCartPage.cartQuantity).should('have.text', 1);
-
-        //check item name
-        cy.get(addToCartPage.itemName).should('have.text', 'Sauce Labs Backpack');
-
-        //check item price
-        cy.get(addToCartPage.itemPrice).should('have.text', '$29.99');
+        addSingleItemToCartTest();
+        
     });
 
     it('Add multiple items to cart', () => {
@@ -84,4 +60,34 @@ describe('The User', () => {
         });
     });
 
-})
+});
+
+  function addSingleItemToCartTest(){
+    //check if url is inventory url
+    cy.url().should('include', CheckoutInfoPage.inventoryUrl);
+
+    //click add to cart button
+    addToCartPage.addToCart('Sauce Labs Backpack');
+
+    //check cart item count
+    cy.get(addToCartPage.cartBadge).should('have.text', 1);
+
+    //click cart icon
+    cy.get(addToCartPage.cartIcon).click();
+
+    //check if url is cart url
+    cy.url().should('include', CheckoutInfoPage.cartUrl);
+
+    //check page header
+    cy.get(addToCartPage.pageHeader).should('be.visible');
+
+    //check quantity
+    cy.get(addToCartPage.cartQuantity).should('have.text', 1);
+
+    //check item name
+    cy.get(addToCartPage.itemName).should('have.text', 'Sauce Labs Backpack');
+
+    //check item price
+    cy.get(addToCartPage.itemPrice).should('have.text', '$29.99');
+  }
+  module.exports.addSingleItemToCartTest = addSingleItemToCartTest;

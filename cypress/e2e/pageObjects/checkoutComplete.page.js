@@ -4,7 +4,7 @@ class CheckoutComplete{
         return ('https://www.saucedemo.com/checkout-complete.html')
     }
 
-    get ckeckoutCompletePageTitle() {
+    get ckeckoutCompletePageHeader() {
         return ('.title');
     }
 
