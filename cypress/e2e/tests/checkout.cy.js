@@ -134,7 +134,7 @@ describe('A user', () => {
     });
 
     //should not checkout if zip code is not entered
-    it.only('should not checkout if zip is missing', () => {
+    it('should not checkout if zip is missing', () => {
 
         addSingleItemToCartTest();
 
