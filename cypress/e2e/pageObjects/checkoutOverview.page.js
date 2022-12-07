@@ -52,8 +52,5 @@
         return ('#finish');
     }
 
-    // checkoutOverview() {
-        
-    // }
 }
 export default new CheckoutOverview()

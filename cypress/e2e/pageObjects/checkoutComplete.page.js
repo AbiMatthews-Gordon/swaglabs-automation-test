@@ -24,8 +24,8 @@ class CheckoutComplete{
         return ('#back-to-products');
     }
 
-    checkoutComplete() {
+    // checkoutComplete() {
         
-    }
+    // }
 }
 export default new CheckoutComplete()

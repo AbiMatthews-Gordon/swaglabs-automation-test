@@ -88,23 +88,70 @@ describe('A user', () => {
         cy.visit('/');
     });
 
-    //should not checkout if firstname is not entered
-    // it('should not checkout without firstname entered', () => {
-    //     //add item to cart
+    // //should not checkout if firstname is not entered
+    it('should not checkout if firstname is missing', () => {
 
+        addSingleItemToCartTest();
 
-    //     //check url
+        // //click checkout button
+        cy.get(checkoutInfoPage.btnCheckout).click();
 
+        // //check if url is ckeckout url
+        cy.url().should('include', checkoutInfoPage.checkoutInfoUrl);
 
+        // //check page header
+        cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
 
-    // });
+        // //enter info
+        checkoutInfoPage.enterCheckoutInfoWithoutFirstname();
+
+        cy.get(checkoutInfoPage.firstnameRequiredError).should('be.visible');
+        cy.get(checkoutInfoPage.firstnameErrorMessage).should('have.text', 'Error: First Name is required');
+    });
 
 
     //should not checkout if lastname is not entered
+    it('should not checkout if lastname is missing', () => {
 
+        addSingleItemToCartTest();
+
+        // //click checkout button
+        cy.get(checkoutInfoPage.btnCheckout).click();
+
+        // //check if url is ckeckout url
+        cy.url().should('include', checkoutInfoPage.checkoutInfoUrl);
+
+        // //check page header
+        cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
+
+        // //enter info
+        checkoutInfoPage.enterCheckoutInfoWithoutLastname();
+
+        cy.get(checkoutInfoPage.lastnameRequiredError).should('be.visible');
+        cy.get(checkoutInfoPage.lastnameErrorMessage).should('have.text', 'Error: Last Name is required');
+    });
 
     //should not checkout if zip code is not entered
+    it.only('should not checkout if zip is missing', () => {
 
+        addSingleItemToCartTest();
 
+        // //click checkout button
+        cy.get(checkoutInfoPage.btnCheckout).click();
 
+        // //check if url is ckeckout url
+        cy.url().should('include', checkoutInfoPage.checkoutInfoUrl);
+
+        // //check page header
+        cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
+
+        // //enter info
+        checkoutInfoPage.enterCheckoutInfoWithoutPostal();
+
+        cy.get(checkoutInfoPage.postalRequiredError).should('be.visible');
+        cy.get(checkoutInfoPage.postalErrorMessage).should('have.text', 'Error: Postal Code is required');
+    });
 });

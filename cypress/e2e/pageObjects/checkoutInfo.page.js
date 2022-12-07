@@ -64,12 +64,36 @@ class CheckoutInfo {
         return ('#first-name');
     }
 
+    get firstnameRequiredError(){
+        return ('#first-name + svg');
+    }
+
+    get firstnameErrorMessage(){
+        return ('h3[data-test=error]');
+    }
+
     get lastnameField() {
         return ('#last-name');
     }
 
+    get lastnameRequiredError(){
+        return ('#last-name + svg');
+    }
+
+    get lastnameErrorMessage(){
+        return ('h3[data-test=error]');
+    }
+
     get zipCodeField() {
         return ('#postal-code');
+    }
+
+    get postalRequiredError(){
+        return ('#postal-code + svg');
+    }
+
+    get postalErrorMessage(){
+        return ('h3[data-test=error]');
     }
 
     get btnContinue() {
@@ -90,18 +114,31 @@ class CheckoutInfo {
         cy.get(this.zipCodeField).type(checkoutInfo.zipCode);
     }
 
-    // checkoutInfoMissingFirstname(lastname, zipCode) {
-    //     cy.get(this.lastnameField).type(lastname);
-    //     cy.get(this.zipCodeField).type(zipCode);
-    //     //click continue button
-    //     cy.get(this.btnContinue).click();
-    // }
+    enterCheckoutInfoWithoutFirstname(lastname, zipCode) {
+        //set last name
+        cy.get(this.lastnameField).type(checkoutInfo.lastname);
+        //set zip code
+        cy.get(this.zipCodeField).type(checkoutInfo.zipCode);
+        //click continue button
+        cy.get(this.btnContinue).click();
+    }
 
-    // checkoutInfoMissingLastname(firstname, zipCode) {
-    //     cy.get(this.firstnameField).type(firstname);
-    //     cy.get(this.zipCodeField).type(zipCode);
-    //     //click continue button
-    //     cy.get(this.btnContinue).click();
-    // }
+    enterCheckoutInfoWithoutLastname(firstname, zipCode) {
+        //set first name
+        cy.get(this.firstnameField).type(checkoutInfo.firstname);
+        //set zip code
+        cy.get(this.zipCodeField).type(checkoutInfo.zipCode);
+        //click continue button
+        cy.get(this.btnContinue).click();
+    }
+
+    enterCheckoutInfoWithoutPostal(firstname, lastname) {
+        //set first name
+        cy.get(this.firstnameField).type(checkoutInfo.firstname);
+        //set last name
+        cy.get(this.lastnameField).type(checkoutInfo.lastname);
+        //click continue button
+        cy.get(this.btnContinue).click();
+    }
 }
 export default new CheckoutInfo()
