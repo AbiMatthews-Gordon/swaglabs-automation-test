@@ -4,14 +4,10 @@ describe('The User', () => {
     beforeEach(() => {
         cy.visit('/');
 
-        //Login.login(loginData.username, loginData.password);
+        Login.login(loginData.username, loginData.password);
       })
 
     it('Login with a valid user', () => {
-        //Enter username & password then click the login button
-        cy.get('#user-name').type('standard_user');
-        cy.get('#password').type('secret_sauce');
-        cy.get('#login-button').click();
 
         // Assert that the user is taken to the Products page
         cy.get('.inventory_item_name').should('be.visible');
@@ -20,10 +16,6 @@ describe('The User', () => {
     })
 
     it('Add a single product to cart', () => {
-        // Login with a valid user
-        cy.get('#user-name').type('standard_user');
-        cy.get('#password').type('secret_sauce');
-        cy.get('#login-button').click();
 
         // Click add to cart button
         cy.get('#add-to-cart-sauce-labs-backpack').click();

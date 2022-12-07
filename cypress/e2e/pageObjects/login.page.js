@@ -12,6 +12,7 @@ class Login{
         return ('#login-button');
     }
 
+    //enter username & password & click login button
     login(username, password){
         cy.get(this.usernameField).type(username);
         cy.get(this.passwordField).type(password);

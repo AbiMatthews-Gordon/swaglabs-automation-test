@@ -1,10 +1,10 @@
-class Cart{
+class AddToCart{
 
     get cartIcon() { 
         return ('.shopping_cart_link'); 
     }
 
-    get cartNotification() { 
+    get cartBadge() { 
         return ('.shopping_cart_badge');
     }
 
@@ -17,11 +17,19 @@ class Cart{
     }
 
     get cartQuantity() { 
-        return ('.cart_quantity'); 
+        return ('.shopping_cart_badge'); 
     }
 
-    get addToCartBtns() { 
-        return ('//button[text()="Add to cart"]');
+    get itemsInCart(){
+        return ('div.inventory_item_name');
+    }
+
+    get itemsInCartPrice(){
+        return ('div.inventory_item_price')
+    }
+
+    get addToCartBtn() { 
+        return ('#add-to-cart-sauce-labs-backpack');
     }
 
     get removeItemBtns() { 
@@ -38,6 +46,22 @@ class Cart{
 
     get checkOutBtn() { 
         return ('#checkout'); 
+    }
+
+    get pageHeader(){
+        return ('.title');
+    }
+
+    get itemName(){
+        return ('.inventory_item_name');
+    }
+    
+    get itemPrice(){
+        return ('.inventory_item_price');
+    } 
+
+    get btnRemove(){
+        return ('#remove-sauce-labs-backpack');
     }
 
     addToCart(itemName){
@@ -65,4 +89,4 @@ class Cart{
         return itemName.toLowerCase().replaceAll(' ', '-')
     }
 }
-export default new Cart()
+export default new AddToCart()

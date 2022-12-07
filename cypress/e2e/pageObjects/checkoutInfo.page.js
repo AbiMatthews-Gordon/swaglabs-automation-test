@@ -17,7 +17,7 @@ class CheckoutInfo {
     }
 
     get inventoryUrl() {
-        return ('https://www.saucedemo.com/inventory.html');
+        return ('inventory.html');
     }
 
     get cartIcon() {
@@ -25,7 +25,7 @@ class CheckoutInfo {
     }
 
     get cartUrl() {
-        return ('https://www.saucedemo.com/cart.html');
+        return ('cart.html');
     }
 
     get cartPageTitle() {
@@ -49,7 +49,7 @@ class CheckoutInfo {
     }
 
     get checkoutInfoUrl() {
-        return ('https://www.saucedemo.com/checkout-step-one.html');
+        return ('checkout-step-one.html');
     }
 
     get checkoutPageTitle() {
@@ -72,30 +72,43 @@ class CheckoutInfo {
         return ('#continue');
     }
 
-    checkoutInfo() {
 
-        // login
-        cy.get('#user-name').type('standard_user');
-        cy.get('#password').type('secret_sauce');
-        cy.get('#login-button').click();
-
-        // add item to cart
-        cy.get('#add-to-cart-sauce-labs-backpack').click();
-
-        //click cart icon
-        cy.get(this.cartIcon).click();
-
-        //click checkout button 
+    checkout() {
+        cy.get(this.btnCheckout).should('be.visible');
         cy.get(this.btnCheckout).click();
+    }
+
+    checkoutInfo(firstname, lastname, zipCode) {
+
+        // // add item to cart
+        // cy.get('#add-to-cart-sauce-labs-backpack').click();
+
+        // //click cart icon
+        // cy.get(this.cartIcon).click();
+
+        // //click checkout button 
+        // cy.get(this.btnCheckout).click();
 
         //fill out fields
-        cy.get(this.firstnameField).type('Jane');
-        cy.get(this.lastnameField).type('Doe');
-        cy.get(this.zipCodeField).type('00000');
-
+        cy.get(this.firstnameField).type(firstname);
+        cy.get(this.lastnameField).type(lastname);
+        cy.get(this.zipCodeField).type(zipCode);
         //click continue button
         cy.get(this.btnContinue).click();
+    }
 
+    checkoutInfoMissingFirstname(lastname, zipCode) {
+        cy.get(this.lastnameField).type(lastname);
+        cy.get(this.zipCodeField).type(zipCode);
+        //click continue button
+        cy.get(this.btnContinue).click();
+    }
+
+    checkoutInfoMissingLastname(firstname, zipCode) {
+        cy.get(this.firstnameField).type(firstname);
+        cy.get(this.zipCodeField).type(zipCode);
+        //click continue button
+        cy.get(this.btnContinue).click();
     }
 }
 export default new CheckoutInfo()
