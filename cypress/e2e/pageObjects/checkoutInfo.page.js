@@ -140,5 +140,6 @@ class CheckoutInfo {
         //click continue button
         cy.get(this.btnContinue).click();
     }
+
 }
 export default new CheckoutInfo()

@@ -52,5 +52,16 @@
         return ('#finish');
     }
 
+    totalCalculation(itemPrice){
+
+        // //set tax
+        // let taxRate = 0.16;
+
+        // taxDue = itemPrice * (taxRate / 100);
+        // roundedTaxDue =+(taxDue.toFixed(2));
+
+        // totalCost = itemPrice * (1 + (taxRate / 100));
+        // roundedTotalCost = +(totalCost.toFixed(2));
+    }
 }
 export default new CheckoutOverview()
