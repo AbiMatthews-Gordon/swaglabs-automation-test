@@ -24,7 +24,9 @@ class Product{
         return ('.product_sort_container'); 
     }
    
+    //method
     selectSort(sort) {
+        
         cy.get(this.selectSortDropDown).select(sort)
     }
 }
