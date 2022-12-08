@@ -2,6 +2,7 @@
 
 This is a Cypress Test Automation project for the SwagLabs website, which can be found at https://www.saucedemo.com/. It carries out the following workflows:
 
+* Login
 * Add to cart 
 * Remove Item from cart 
 * Checkout
