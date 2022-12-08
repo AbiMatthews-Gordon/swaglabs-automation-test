@@ -64,19 +64,16 @@ describe('A user', () => {
         //check free pony
         cy.get(checkoutOverviewPage.freePonyExpressDelivery).should('exist');
 
-        // checkoutOverviewPage.totalCalculation(productData.products[0].name);
+        const itemTotal = checkoutOverviewPage.totalCalculation(ProductData.products[0].price);
 
-        //check item total, tax & total
-        // cy.get(checkoutOverviewPage.itemTotal).should('contain', ProductData.products[0].price);
-        
-        // cy.get(checkoutOverviewPage.itemTax).should('contain', 
-        //     (ProductData.products[0].price * checkoutOverviewPage.taxPercent).toFixed(2)
-        //     );
-        
-       // cy.get(checkoutOverviewPage.total).should('contain', '32.39');
+        //check that item tax is correct
+        cy.get(checkoutOverviewPage.itemTax).should('contain', 
+        `$${(ProductData.products[0].price * checkoutOverviewPage.taxPercent).toFixed(2)}`
+            );
 
-        //checkoutOverviewPage.totalCalculation();
-
+        //check that cart total is correct
+        cy.get(checkoutOverviewPage.total).should('contain', `$${itemTotal}`);
+ 
         //click finish button
         cy.get(checkoutOverviewPage.btnFinish).click();
 

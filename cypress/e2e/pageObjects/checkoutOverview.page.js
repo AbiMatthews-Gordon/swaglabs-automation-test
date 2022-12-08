@@ -63,8 +63,10 @@
 
     totalCalculation(itemPrice){
     //     //add item total to tax
-        let total = itemPrice * (1 + this.taxPercent).toFixed(2);
-        cy.log(total);
+        let total = (itemPrice * 
+                (1 + this.taxPercent).toFixed(2)
+            ).toFixed(2);
+        // cy.log(total);
 
         return total;
     }
