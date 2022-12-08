@@ -65,7 +65,7 @@ describe('A user', () => {
         // check tax
         cy.get(checkoutOverviewPage.itemTax).should('contain', '$2.40');
         //check total
-        cy.get(checkoutOverviewPage.total).should('contain', '$32.39');
+        cy.get(checkoutOverviewPage.total).should('contain', '32.39');
 
         // checkoutOverviewPage.totalCalculation();
 

@@ -1,4 +1,5 @@
  class CheckoutOverview{
+    // total;
 
     get checkOverviewUrl() {
         return ('https://www.saucedemo.com/checkout-step-two.html');
@@ -52,5 +53,15 @@
         return ('#finish');
     }
 
+    // totalCalculation(itemPrice){
+
+    //     //add item total to tax
+    //     let total = this.itemTotal + this.itemTax;
+    //     cy.log(total);
+
+    //     //verify total cost
+    //     cy.get(this.total).should('be.visible');
+    //     cy.get(this.total).should('contain', this.itemPrice);
+    // }
 }
 export default new CheckoutOverview()
