@@ -1,6 +1,6 @@
 # SWAGLABS Automation Test 
 
-This is a WebDriverIO Test Automation project for the LUMA website, which can be found at https://www.saucedemo.com/. It carries out the following workflows:
+This is a Cypress Test Automation project for the SwagLabs website, which can be found at https://www.saucedemo.com/. It carries out the following workflows:
 
 * Add to cart 
 * Remove Item from cart 
