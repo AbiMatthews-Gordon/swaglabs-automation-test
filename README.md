@@ -3,7 +3,7 @@
 This is a WebDriverIO Test Automation project for the LUMA website, which can be found at https://www.saucedemo.com/. It carries out the following workflows:
 
 * Add to cart 
-* Remove Item from cart
+* Remove Item from cart 
 * Checkout
 
 It also includes Data-Driven Tests, Negative Tests and Sorts.
@@ -21,3 +21,42 @@ It also includes Data-Driven Tests, Negative Tests and Sorts.
 
 ## Commands
 
+* To execute a single test in command line:
+```bash
+npx cypress run --spec < path >
+```
+Examples
+```bash
+    npx cypress run --spec .\cypress\e2e\tests\addToCart.cy.js
+```
+```bash
+    npx cypress run --spec .\cypress\e2e\tests\checkout.cy.js
+```
+```bash
+    npx cypress run --spec .\cypress\e2e\tests\login.cy.js
+```
+```bash
+    npx cypress run --spec .\cypress\e2e\tests\removeFromCart.cy.js
+```
+```bash
+    npx cypress run --spec .\cypress\e2e\tests\sort.cy.js
+```
+```bash
+    npx cypress run --spec .\cypress\e2e\tests\sortAdvanced.cy.js
+```
+* To execute tests in Cypress
+```bash
+    npx cypress open
+```
+* To execute tests in specific browser
+```bash
+    npx cypress run --browser < browser name >
+```
+Examples
+```bash
+    npx cypress run --browser chrome
+```
+```bash
+    npx cypress run --browser firefox
+```
+**Note:** You must have the browser installed.
