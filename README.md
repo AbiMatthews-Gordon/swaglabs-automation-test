@@ -6,6 +6,7 @@ This is a Cypress Test Automation project for the SwagLabs website, which can be
 * Add to cart 
 * Remove Item from cart 
 * Checkout
+* Sort
 
 It also includes Data-Driven Tests, Negative Tests and Sorts.
 
@@ -28,22 +29,16 @@ npx cypress run --spec < path >
 ```
 Examples
 ```bash
+    npx cypress run --spec .\cypress\e2e\tests\login.cy.js
+```
+```bash
     npx cypress run --spec .\cypress\e2e\tests\addToCart.cy.js
 ```
 ```bash
     npx cypress run --spec .\cypress\e2e\tests\checkout.cy.js
 ```
 ```bash
-    npx cypress run --spec .\cypress\e2e\tests\login.cy.js
-```
-```bash
-    npx cypress run --spec .\cypress\e2e\tests\removeFromCart.cy.js
-```
-```bash
     npx cypress run --spec .\cypress\e2e\tests\sort.cy.js
-```
-```bash
-    npx cypress run --spec .\cypress\e2e\tests\sortAdvanced.cy.js
 ```
 * To execute tests in Cypress
 ```bash
