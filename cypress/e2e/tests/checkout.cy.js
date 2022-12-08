@@ -1,17 +1,21 @@
-import { loginData } from '../data/login.data';
+import usersData from '../data/users.data';
 import checkoutInfoPage from '../pageObjects/checkoutInfo.page';
-import Cart from '../pageObjects/addToCart.page';
 import Login from '../pageObjects/login.page';
 import { addSingleItemToCartTest } from './addToCart.cy';
 import checkoutOverviewPage from '../pageObjects/checkoutOverview.page';
 import checkoutCompletePage from '../pageObjects/checkoutComplete.page'
+import ProductData from '../data/product.data';
 
 describe('A user', () => {
     //The url that opens before each test
     beforeEach(() => {
         cy.visit('/');
 
-        Login.login(loginData.username, loginData.password);
+        Login.login(usersData.validUser.username, usersData.validUser.password);
+    });
+
+    afterEach(() => {
+        Login.logout();
     });
 
     // //should successfully checkout
@@ -27,7 +31,7 @@ describe('A user', () => {
 
         //check page header
         cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
-        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', checkoutInfoPage.checkoutInfoPageHeader);
 
         //enter info
         checkoutInfoPage.enterCheckoutInfo();
@@ -40,15 +44,15 @@ describe('A user', () => {
 
         //check page header
         cy.get(checkoutOverviewPage.checkoutOverviewPageHeader).should('be.visible');
-        cy.get(checkoutOverviewPage.checkoutOverviewPageHeader).should('have.text', 'Checkout: Overview');
+        cy.get(checkoutOverviewPage.checkoutOverviewPageHeader).should('have.text', checkoutOverviewPage.checkoutOverviewPageTitle);
 
         //check quantity
         cy.get(checkoutOverviewPage.cartQuantity).should('have.text', 1);
 
         //check item name
-        cy.get(checkoutOverviewPage.overviewItemName).should('have.text', 'Sauce Labs Backpack');
+        cy.get(checkoutOverviewPage.overviewItemName).should('have.text', ProductData.products[0].name);
         //check item price
-        cy.get(checkoutOverviewPage.overviewItemPrice).should('contain', '$29.99');
+        cy.get(checkoutOverviewPage.overviewItemPrice).should('contain', ProductData.products[0].price);
 
         //check payment info
         cy.get(checkoutOverviewPage.paymentInfo).should('exist');
@@ -60,14 +64,18 @@ describe('A user', () => {
         //check free pony
         cy.get(checkoutOverviewPage.freePonyExpressDelivery).should('exist');
 
-        //check item total
-        cy.get(checkoutOverviewPage.itemTotal).should('contain', '$29.99');
-        // check tax
-        cy.get(checkoutOverviewPage.itemTax).should('contain', '$2.40');
-        //check total
-        cy.get(checkoutOverviewPage.total).should('contain', '32.39');
+        // checkoutOverviewPage.totalCalculation(productData.products[0].name);
 
-        // checkoutOverviewPage.totalCalculation();
+        //check item total, tax & total
+        // cy.get(checkoutOverviewPage.itemTotal).should('contain', ProductData.products[0].price);
+        
+        // cy.get(checkoutOverviewPage.itemTax).should('contain', 
+        //     (ProductData.products[0].price * checkoutOverviewPage.taxPercent).toFixed(2)
+        //     );
+        
+       // cy.get(checkoutOverviewPage.total).should('contain', '32.39');
+
+        //checkoutOverviewPage.totalCalculation();
 
         //click finish button
         cy.get(checkoutOverviewPage.btnFinish).click();
@@ -77,17 +85,14 @@ describe('A user', () => {
 
         //check page header
         cy.get(checkoutCompletePage.ckeckoutCompletePageHeader).should('be.visible');
-        cy.get(checkoutCompletePage.ckeckoutCompletePageHeader).should('have.text', 'Checkout: Complete!');
+        cy.get(checkoutCompletePage.ckeckoutCompletePageHeader).should('have.text', checkoutCompletePage.checkoutCompletePageTitle);
 
         //check thank you message
-        cy.get(checkoutCompletePage.thankYouMessage).should('have.text', 'THANK YOU FOR YOUR ORDER');
+        cy.get(checkoutCompletePage.thankYouMessage).should('have.text', checkoutCompletePage.checkoutCompleteTextMessage);
         //check dispatch message
-        cy.get(checkoutCompletePage.dispatchedMessage).should('have.text', 'Your order has been dispatched, and will arrive just as fast as the pony can get there!');
+        cy.get(checkoutCompletePage.dispatchedMessage).should('have.text', checkoutCompletePage.checkoutDispatchTextMessage);
         //check logo
         cy.get(checkoutCompletePage.ponyExpressLogo).should('exist');
-
-        //go back to products page
-        cy.visit('/');
     });
 
     // //should not checkout if firstname is not entered
@@ -103,13 +108,13 @@ describe('A user', () => {
 
         // //check page header
         cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
-        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', checkoutInfoPage.checkoutInfoPageHeader);
 
         // //enter info
         checkoutInfoPage.enterCheckoutInfoWithoutFirstname();
 
         cy.get(checkoutInfoPage.firstnameRequiredError).should('be.visible');
-        cy.get(checkoutInfoPage.firstnameErrorMessage).should('have.text', 'Error: First Name is required');
+        cy.get(checkoutInfoPage.firstnameErrorMessage).should('have.text', checkoutInfoPage.firstnameErrorMessageText);
     });
 
 
@@ -126,13 +131,13 @@ describe('A user', () => {
 
         // //check page header
         cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
-        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', checkoutInfoPage.cartHeaderText);
 
         // //enter info
         checkoutInfoPage.enterCheckoutInfoWithoutLastname();
 
         cy.get(checkoutInfoPage.lastnameRequiredError).should('be.visible');
-        cy.get(checkoutInfoPage.lastnameErrorMessage).should('have.text', 'Error: Last Name is required');
+        cy.get(checkoutInfoPage.lastnameErrorMessage).should('have.text', checkoutInfoPage.lastnameErrorMessageText);
     });
 
     //should not checkout if zip code is not entered
@@ -148,12 +153,12 @@ describe('A user', () => {
 
         // //check page header
         cy.get(checkoutInfoPage.cartPageHeader).should('be.visible');
-        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', 'Checkout: Your Information');
+        cy.get(checkoutInfoPage.cartPageHeader).should('have.text', checkoutInfoPage.cartHeaderText);
 
         // //enter info
         checkoutInfoPage.enterCheckoutInfoWithoutPostal();
 
         cy.get(checkoutInfoPage.postalRequiredError).should('be.visible');
-        cy.get(checkoutInfoPage.postalErrorMessage).should('have.text', 'Error: Postal Code is required');
+        cy.get(checkoutInfoPage.postalErrorMessage).should('have.text', checkoutInfoPage.postalErrorMessageText);
     });
 });

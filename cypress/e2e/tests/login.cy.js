@@ -1,6 +1,5 @@
 import Login from '../pageObjects/login.page';
-import { invalidLogin, loginData } from '../data/login.data';
-import loginPage from '../pageObjects/login.page';
+import usersData from '../data/users.data';
 
 describe('The user', () => {
 
@@ -10,14 +9,13 @@ describe('The user', () => {
 
     it('should be able to login', () => {
 
-        Login.login(loginData.username, loginData.password);
+        Login.login(usersData.validUser.username, usersData.validUser.password);
         cy.url().should('contain', 'inventory');
     });
 
-    it('should not login with invalid credentials', () => {
+    it('should not login with lockOutUser credentials', () => {
 
-        Login.login(invalidLogin.username,invalidLogin.password);
-        cy.get(loginPage.invalidLoginErrorMessage).should('have.text', 'Epic sadface: Sorry, this user has been locked out.');
+        Login.login(usersData.lockedOutUser.username, usersData.lockedOutUser.password);
+        cy.get(Login.invalidLoginErrorMessage).should('have.text', usersData.lockedOutUser.errorMsg);
     });
-
 });

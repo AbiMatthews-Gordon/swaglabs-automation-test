@@ -1,36 +1,69 @@
-import { loginData } from '../data/login.data';
-import Login from '../pageObjects/login.page'
+import usersData from '../data/users.data';
+import Login from '../pageObjects/login.page';
+import ProductData from '../data/product.data';
+import Product from '../pageObjects/product.page';
 
-describe('Filter', () => {
+
+describe('Sort', () => {
     beforeEach(() => {
         cy.visit('/')
 
-        Login.login(loginData.username, loginData.password);
-      });
+        Login.login(usersData.validUser.username, usersData.validUser.password);
+    })
+
+    afterEach(() => {
+        Login.logout();
+    });
 
     it('should sort product list from A-Z', () => {
 
-        cy.get('.product_sort_container').select('az');
+        Product.selectSort(ProductData.sort['A to Z']);
 
-        var productList = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
-        productList.sort();
+        // Sort data list based on name, from A to Z
+        ProductData.products.sort();
 
-        cy.get('.inventory_item_name').each(($elem, index) => {
+        cy.get(Product.itemName).each(($elem, index) => {
 
-            expect($elem.text()).equal(productList[index]);
+            expect($elem.text()).equal(ProductData.products[index].name);
         })
-    });
+    })
 
     it('should sort product list from Z-A', () => {
-        
-        cy.get('.product_sort_container').select('za');
 
-        var productList = ['Sauce Labs Backpack', 'Sauce Labs Bike Light', 'Sauce Labs Bolt T-Shirt', 'Sauce Labs Fleece Jacket', 'Sauce Labs Onesie', 'Test.allTheThings() T-Shirt (Red)']
-        productList.sort().reverse();
+        Product.selectSort(ProductData.sort['Z to A']);
 
-        cy.get('.inventory_item_name').each(($elem, index) => {
+        // Sort data list based on name, from Z to A
+        ProductData.products.sort().reverse();
 
-            expect($elem.text()).equal(productList[index]);
+        cy.get(Product.itemName).each(($elem, index) => {
+
+            expect($elem.text()).equal(ProductData.products[index].name);
         })
-    });
-})
+    })
+
+    it('should sort product list from low to high', () => {
+
+        Product.selectSort(ProductData.sort['Low to High']);
+
+        // Sort data list based on price, from low to high
+        ProductData.products.sort((a, b) => a.price - b.price);
+
+        cy.get(Product.itemPrice).each(($elem, index) => {
+
+            expect($elem.text()).equal(`$${ProductData.products[index].price}`);
+        })
+    })
+
+    it('should sort product list from high to low', () => {
+
+        Product.selectSort(ProductData.sort['High to Low']);
+
+        // Sort data list based on price, from high to low
+        ProductData.products.sort((a, b) => b.price - a.price);
+
+        cy.get(Product.itemPrice).each(($elem, index) => {
+
+            expect($elem.text()).equal(`$${ProductData.products[index].price}`);
+        })
+    })
+});

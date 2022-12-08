@@ -53,15 +53,20 @@
         return ('#finish');
     }
 
-    // totalCalculation(itemPrice){
+    get checkoutOverviewPageTitle(){
+        return 'Checkout: Overview';
+    }
 
+    get taxPercent(){
+        return .08;
+    }
+
+    totalCalculation(itemPrice){
     //     //add item total to tax
-    //     let total = this.itemTotal + this.itemTax;
-    //     cy.log(total);
+        let total = itemPrice * (1 + this.taxPercent).toFixed(2);
+        cy.log(total);
 
-    //     //verify total cost
-    //     cy.get(this.total).should('be.visible');
-    //     cy.get(this.total).should('contain', this.itemPrice);
-    // }
+        return total;
+    }
 }
 export default new CheckoutOverview()

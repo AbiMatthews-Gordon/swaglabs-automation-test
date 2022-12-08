@@ -100,6 +100,26 @@ class CheckoutInfo {
         return ('#continue');
     }
 
+    get checkoutInfoPageHeader(){
+        return 'Checkout: Your Information';
+    }
+
+    get firstnameErrorMessageText(){
+        return 'Error: First Name is required';
+    }
+
+    get cartHeaderText(){
+        return 'Checkout: Your Information';
+    }
+
+    get lastnameErrorMessageText(){
+        return 'Error: Last Name is required';
+    }
+
+    get postalErrorMessageText(){
+        return 'Error: Postal Code is required';
+    }
+
     checkout() {
         cy.get(this.btnCheckout).should('be.visible');
         cy.get(this.btnCheckout).click();
