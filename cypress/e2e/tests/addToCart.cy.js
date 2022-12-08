@@ -128,4 +128,3 @@ describe('The User', () => {
     //check item price
     cy.get(addToCartPage.itemPrice).should('have.text', `$${products[0].price}`);
   }
-  module.exports.addSingleItemToCartTest = addSingleItemToCartTest;

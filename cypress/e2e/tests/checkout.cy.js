@@ -1,12 +1,13 @@
 import usersData from '../data/users.data';
 import checkoutInfoPage from '../pageObjects/checkoutInfo.page';
 import Login from '../pageObjects/login.page';
-import { addSingleItemToCartTest } from './addToCart.cy';
 import checkoutOverviewPage from '../pageObjects/checkoutOverview.page';
 import checkoutCompletePage from '../pageObjects/checkoutComplete.page'
-import ProductData from '../data/product.data';
+import { products } from '../data/product.data';
+import addToCartPage from '../pageObjects/addToCart.page';
 
 describe('A user', () => {
+
     //The url that opens before each test
     beforeEach(() => {
         cy.visit('/');
@@ -21,7 +22,7 @@ describe('A user', () => {
     // //should successfully checkout
     it('should successfully checkout', () => {
 
-        addSingleItemToCartTest();
+        addAnItemToCartTest();
 
         //click checkout button
         cy.get(checkoutInfoPage.btnCheckout).click();
@@ -50,9 +51,9 @@ describe('A user', () => {
         cy.get(checkoutOverviewPage.cartQuantity).should('have.text', 1);
 
         //check item name
-        cy.get(checkoutOverviewPage.overviewItemName).should('have.text', ProductData.products[0].name);
+        cy.get(checkoutOverviewPage.overviewItemName).should('have.text', products[0].name);
         //check item price
-        cy.get(checkoutOverviewPage.overviewItemPrice).should('contain', ProductData.products[0].price);
+        cy.get(checkoutOverviewPage.overviewItemPrice).should('contain', products[0].price);
 
         //check payment info
         cy.get(checkoutOverviewPage.paymentInfo).should('exist');
@@ -64,11 +65,11 @@ describe('A user', () => {
         //check free pony
         cy.get(checkoutOverviewPage.freePonyExpressDelivery).should('exist');
 
-        const itemTotal = checkoutOverviewPage.totalCalculation(ProductData.products[0].price);
+        const itemTotal = checkoutOverviewPage.totalCalculation(products[0].price);
 
         //check that item tax is correct
         cy.get(checkoutOverviewPage.itemTax).should('contain', 
-        `$${(ProductData.products[0].price * checkoutOverviewPage.taxPercent).toFixed(2)}`
+        `$${(products[0].price * checkoutOverviewPage.taxPercent).toFixed(2)}`
             );
 
         //check that cart total is correct
@@ -95,7 +96,7 @@ describe('A user', () => {
     //should not checkout if firstname is not entered
     it('should not checkout if firstname is missing', () => {
 
-        addSingleItemToCartTest();
+        addAnItemToCartTest();
 
         // //click checkout button
         cy.get(checkoutInfoPage.btnCheckout).click();
@@ -117,7 +118,7 @@ describe('A user', () => {
     //should not checkout if lastname is not entered
     it('should not checkout if lastname is missing', () => {
 
-        addSingleItemToCartTest();
+        addAnItemToCartTest();
 
         // //click checkout button
         cy.get(checkoutInfoPage.btnCheckout).click();
@@ -139,7 +140,7 @@ describe('A user', () => {
     //should not checkout if zip code is not entered
     it('should not checkout if zip is missing', () => {
 
-        addSingleItemToCartTest();
+        addAnItemToCartTest();
 
         // //click checkout button
         cy.get(checkoutInfoPage.btnCheckout).click();
@@ -158,3 +159,32 @@ describe('A user', () => {
         cy.get(checkoutInfoPage.postalErrorMessage).should('have.text', checkoutInfoPage.postalErrorMessageText);
     });
 });
+
+function addAnItemToCartTest(){
+    //check if url is inventory url
+    cy.url().should('include', checkoutInfoPage.inventoryUrl);
+
+    //click add to cart button
+    addToCartPage.addToCart(products[0].name);
+
+    //check cart item count
+    cy.get(addToCartPage.cartBadge).should('have.text', 1);
+
+    //click cart icon
+    cy.get(addToCartPage.cartIcon).click();
+
+    //check if url is cart url
+    cy.url().should('include', checkoutInfoPage.cartUrl);
+
+    //check page header
+    cy.get(addToCartPage.pageHeader).should('be.visible');
+
+    //check quantity
+    cy.get(addToCartPage.cartQuantity).should('have.text', 1);
+
+    //check item name
+    cy.get(addToCartPage.itemName).should('have.text', products[0].name);
+
+    //check item price
+    cy.get(addToCartPage.itemPrice).should('have.text', `$${products[0].price}`);
+  }
