@@ -6,7 +6,6 @@ This is a Cypress Test Automation project for the SwagLabs website, which can be
 * Add to cart 
 * Remove Item from cart 
 * Checkout
-* Sort
 
 It also includes Data-Driven Tests, Negative Tests and Sorts.
 

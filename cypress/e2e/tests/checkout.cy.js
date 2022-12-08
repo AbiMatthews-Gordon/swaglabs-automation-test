@@ -19,7 +19,7 @@ describe('A user', () => {
     });
 
     // //should successfully checkout
-    it.only('should successfully checkout', () => {
+    it('should successfully checkout', () => {
 
         addSingleItemToCartTest();
 
@@ -92,7 +92,7 @@ describe('A user', () => {
         cy.get(checkoutCompletePage.ponyExpressLogo).should('exist');
     });
 
-    // //should not checkout if firstname is not entered
+    //should not checkout if firstname is not entered
     it('should not checkout if firstname is missing', () => {
 
         addSingleItemToCartTest();
@@ -113,7 +113,6 @@ describe('A user', () => {
         cy.get(checkoutInfoPage.firstnameRequiredError).should('be.visible');
         cy.get(checkoutInfoPage.firstnameErrorMessage).should('have.text', checkoutInfoPage.firstnameErrorMessageText);
     });
-
 
     //should not checkout if lastname is not entered
     it('should not checkout if lastname is missing', () => {
